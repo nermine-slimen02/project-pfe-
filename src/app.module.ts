@@ -12,9 +12,10 @@ import { InterventionsModule } from './interventions/interventions.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, TicketsModule, CategoriesModule, LocationsModule, TeamsModule, AssignmentsModule, InterventionsModule, NotificationsModule, DashboardModule],
+  imports: [PrismaModule, AuthModule, UsersModule, TicketsModule, CategoriesModule, LocationsModule, TeamsModule, AssignmentsModule, InterventionsModule, NotificationsModule, DashboardModule, CommentsModule],
   controllers: [AppController],
   providers: [AppService],
 })

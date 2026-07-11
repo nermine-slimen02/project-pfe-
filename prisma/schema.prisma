@@ -26,6 +26,7 @@ model Ticket {
   user          User     @relation("CreatedTickets", fields: [userId], references: [id])
   assignedTo    User?    @relation("AssignedTickets", fields: [assignedToId], references: [id])
   interventions Intervention[] @relation("TicketInterventions")
+  comments      Comment[] @relation("TicketComments")
 }
 
 model User {
@@ -39,7 +40,22 @@ model User {
   createdTickets  Ticket[] @relation("CreatedTickets")
   assignedTickets Ticket[] @relation("AssignedTickets")
   interventions   Intervention[] @relation("TechnicianInterventions")
+  comments        Comment[] @relation("UserComments")
 }
+
+model Comment {
+  id          String   @id @default(uuid())
+  content     String
+  type        String   @default("PUBLIC")
+  ticketId    String
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ticket      Ticket   @relation("TicketComments", fields: [ticketId], references: [id])
+  user        User     @relation("UserComments", fields: [userId], references: [id])
+}
+
 model Intervention {
   id                String   @id @default(uuid())
 
