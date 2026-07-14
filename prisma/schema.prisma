@@ -28,6 +28,7 @@ model Ticket {
   interventions Intervention[] @relation("TicketInterventions")
   comments      Comment[] @relation("TicketComments")
   notifications Notification[] @relation("TicketNotifications")
+  auditLogs     AuditLog[] @relation("TicketAuditLogs")
 }
 
 model User {
@@ -43,6 +44,7 @@ model User {
   interventions   Intervention[] @relation("TechnicianInterventions")
   comments        Comment[] @relation("UserComments")
   notifications   Notification[] @relation("UserNotifications")
+  auditLogs       AuditLog[] @relation("UserAuditLogs")
 }
 
 model Comment {
@@ -91,4 +93,17 @@ model Notification {
 
   user      User     @relation("UserNotifications", fields: [userId], references: [id])
   ticket    Ticket?  @relation("TicketNotifications", fields: [ticketId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  oldValue  String?
+  newValue  String?
+  ticketId  String
+  userId    String
+  createdAt DateTime @default(now())
+
+  ticket    Ticket   @relation("TicketAuditLogs", fields: [ticketId], references: [id])
+  user      User     @relation("UserAuditLogs", fields: [userId], references: [id])
 }

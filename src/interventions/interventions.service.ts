@@ -1,11 +1,15 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { CreateInterventionDto } from './dto/create-intervention.dto';
 import { UpdateInterventionDto } from './dto/update-intervention.dto';
 
 @Injectable()
 export class InterventionsService {
-	constructor(private readonly prisma: PrismaService) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly auditLogsService: AuditLogsService,
+	) {}
 
 	async create(data: CreateInterventionDto) {
 		const ticket = await this.prisma.ticket.findUnique({ where: { id: data.ticketId } });
@@ -14,7 +18,7 @@ export class InterventionsService {
 		const technician = await this.prisma.user.findUnique({ where: { id: data.technicianId } });
 		if (!technician) throw new NotFoundException('Technician not found');
 
-		return this.prisma.intervention.create({
+		const createdIntervention = await this.prisma.intervention.create({
 			data: {
 				ticketId: data.ticketId,
 				technicianId: data.technicianId,
@@ -26,6 +30,16 @@ export class InterventionsService {
 				actionsRealisees: data.actionsRealisees,
 			},
 		});
+
+		await this.auditLogsService.logAction({
+			action: 'INTERVENTION_ADDED',
+			ticketId: data.ticketId,
+			userId: data.technicianId,
+			oldValue: null,
+			newValue: `Statut: ${createdIntervention.statut}`,
+		});
+
+		return createdIntervention;
 	}
 
 	async findAll() {
@@ -90,6 +104,14 @@ export class InterventionsService {
       data: { status: 'IN_PROGRESS' },
     });
 
+    await this.auditLogsService.logAction({
+      action: 'INTERVENTION_STARTED',
+      ticketId: updatedIntervention.ticketId,
+      userId: technician.id,
+      oldValue: 'EN_ATTENTE',
+      newValue: 'EN_COURS',
+    });
+
     return updatedIntervention;
   }
 
@@ -132,6 +154,22 @@ export class InterventionsService {
     await this.prisma.ticket.update({
       where: { id: updatedIntervention.ticketId },
       data: { status: 'RESOLVED' },
+    });
+
+    await this.auditLogsService.logAction({
+      action: 'INTERVENTION_CLOSED',
+      ticketId: updatedIntervention.ticketId,
+      userId: technician.id,
+      oldValue: 'EN_COURS',
+      newValue: 'TERMINEE',
+    });
+
+    await this.auditLogsService.logAction({
+      action: 'TICKET_RESOLVED',
+      ticketId: updatedIntervention.ticketId,
+      userId: technician.id,
+      oldValue: ticket.status,
+      newValue: 'RESOLVED',
     });
 
     return updatedIntervention;

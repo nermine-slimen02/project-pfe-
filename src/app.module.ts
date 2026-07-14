@@ -13,9 +13,10 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CommentsModule } from './comments/comments.module';
+import { AuditLogsModule } from './audit-logs/audit-logs.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, TicketsModule, CategoriesModule, LocationsModule, TeamsModule, AssignmentsModule, InterventionsModule, NotificationsModule, DashboardModule, CommentsModule],
+  imports: [PrismaModule, AuthModule, UsersModule, TicketsModule, CategoriesModule, LocationsModule, TeamsModule, AssignmentsModule, InterventionsModule, NotificationsModule, DashboardModule, CommentsModule, AuditLogsModule],
   controllers: [AppController],
   providers: [AppService],
 })
