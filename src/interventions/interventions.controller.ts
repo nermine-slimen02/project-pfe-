@@ -12,7 +12,7 @@ import { InterventionsService } from './interventions.service';
 import { CreateInterventionDto } from './dto/create-intervention.dto';
 import { UpdateInterventionDto } from './dto/update-intervention.dto';
 import { InterventionResponseDto } from './dto/intervention-response.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiBody, ApiParam } from '@nestjs/swagger';
 
 @ApiTags('Interventions')
 @Controller('interventions')
@@ -21,6 +21,7 @@ export class InterventionsController {
 
 	@Post()
 	@ApiOperation({ summary: 'Create an intervention' })
+	@ApiBody({ type: CreateInterventionDto })
 	@ApiCreatedResponse({ type: InterventionResponseDto, description: 'Intervention created successfully.' })
 	@ApiBadRequestResponse({ description: 'Invalid intervention data.' })
 	create(@Body() dto: CreateInterventionDto) {
@@ -36,6 +37,7 @@ export class InterventionsController {
 
 	@Get(':id')
 	@ApiOperation({ summary: 'Get an intervention by id' })
+	@ApiParam({ name: 'id', description: 'Intervention ID' })
 	@ApiResponse({ status: 200, description: 'Intervention found.', type: InterventionResponseDto })
 	@ApiNotFoundResponse({ description: 'Intervention not found.' })
 	findOne(@Param('id', new ParseUUIDPipe()) id: string) {
@@ -44,6 +46,8 @@ export class InterventionsController {
 
 	@Patch(':id')
 	@ApiOperation({ summary: 'Update an intervention' })
+	@ApiParam({ name: 'id', description: 'Intervention ID' })
+	@ApiBody({ type: UpdateInterventionDto })
 	@ApiResponse({ status: 200, description: 'Intervention updated.', type: InterventionResponseDto })
 	@ApiNotFoundResponse({ description: 'Intervention not found.' })
 	update(
@@ -55,7 +59,7 @@ export class InterventionsController {
 
 	@Patch(':id/start')
 	@ApiOperation({ summary: 'Start an intervention' })
-	@ApiResponse({ status: 200, description: 'Intervention started.' })
+	@ApiParam({ name: 'id', description: 'Intervention ID' })
 	@ApiResponse({ status: 200, description: 'Intervention started.', type: InterventionResponseDto })
 	@ApiBadRequestResponse({ description: 'Intervention already started or status invalid.' })
 	@ApiNotFoundResponse({ description: 'Intervention not found.' })
@@ -65,6 +69,7 @@ export class InterventionsController {
 
 	@Patch(':id/finish')
 	@ApiOperation({ summary: 'Finish an intervention' })
+	@ApiParam({ name: 'id', description: 'Intervention ID' })
 	@ApiResponse({ status: 200, description: 'Intervention finished.', type: InterventionResponseDto })
 	@ApiBadRequestResponse({ description: 'Intervention not started or already finished.' })
 	@ApiNotFoundResponse({ description: 'Intervention not found.' })
@@ -74,6 +79,7 @@ export class InterventionsController {
 
 	@Delete(':id')
 	@ApiOperation({ summary: 'Delete an intervention' })
+	@ApiParam({ name: 'id', description: 'Intervention ID' })
 	@ApiResponse({ status: 200, description: 'Intervention deleted.' })
 	@ApiNotFoundResponse({ description: 'Intervention not found.' })
 	remove(@Param('id', new ParseUUIDPipe()) id: string) {

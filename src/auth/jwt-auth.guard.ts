@@ -4,19 +4,15 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Request } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class JwtAuthGuard implements CanActivate {
-  canActivate(context: ExecutionContext): boolean {
-    const request = context.switchToHttp().getRequest<Request>();
-    const requestWithUser = request as Request & { user?: { role?: string } };
-    const user = requestWithUser.user;
-
-    if (!user) {
-      throw new UnauthorizedException('Authentication required');
+export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
+  handleRequest<TUser = unknown>(err: unknown, user: TUser, info: unknown): TUser {
+    if (err || !user) {
+      throw err || new UnauthorizedException('Authentication required');
     }
-
-    return true;
+    return user;
   }
 }
+
