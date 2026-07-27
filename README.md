@@ -1,98 +1,382 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# HelpDesk Backend
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+HelpDesk Backend est une API REST développée avec **NestJS**, **Prisma** et **PostgreSQL** dans le cadre de mon Projet de Fin d'Études (PFE).
 
-## Project setup
+L'application permet de gérer le cycle de vie complet d'un ticket d'assistance informatique, depuis sa création jusqu'à sa résolution, avec gestion des interventions, commentaires, notifications, audit des actions et statistiques.
 
-```bash
-$ yarn install
-```
+---
 
-## Compile and run the project
+# Technologies utilisées
 
-```bash
-# development
-$ yarn run start
+- NestJS
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- JWT Authentication
+- Swagger (OpenAPI)
+- Bcrypt
+- Class Validator
+- Class Transformer
 
-# watch mode
-$ yarn run start:dev
+---
 
-# production mode
-$ yarn run start:prod
-```
+# Installation
 
-## Run tests
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Cloner le dépôt :
 
 ```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+git clone https://github.com/nermine-slimen02/project-pfe-.git
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Accéder au projet :
 
-## Resources
+```bash
+cd helpdesk-backend
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+Se placer sur la branche backend :
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+git checkout backend
+```
 
-## Support
+Installer les dépendances :
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm install
+```
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Variables d'environnement
 
-## License
+Créer un fichier `.env` à la racine du projet.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Exemple :
+
+```env
+DATABASE_URL="postgresql://postgres:password@localhost:5432/helpdesk_pfe"
+
+JWT_SECRET=your_secret_key
+
+PORT=3000
+```
+
+---
+
+# Base de données
+
+Exécuter les migrations :
+
+```bash
+npx prisma migrate dev
+```
+
+Générer Prisma Client :
+
+```bash
+npx prisma generate
+```
+
+Ouvrir Prisma Studio :
+
+```bash
+npx prisma studio
+```
+
+---
+
+# Lancer le projet
+
+Mode développement :
+
+```bash
+npm run start:dev
+```
+
+Compilation :
+
+```bash
+npm run build
+```
+
+---
+
+# Documentation API
+
+Swagger est disponible à l'adresse :
+
+```
+http://localhost:3000/api
+```
+
+---
+
+# Fonctionnalités
+
+## Authentification
+
+- Authentification JWT
+- Protection des routes
+- Gestion des rôles
+
+Rôles disponibles :
+
+- USER
+- TECHNICIAN
+- SUPERVISOR
+- ADMIN
+
+---
+
+## Module Tickets
+
+Fonctionnalités :
+
+- Création d'un ticket
+- Modification d'un ticket
+- Suppression
+- Consultation
+- Assignation à un technicien
+- Gestion du SLA
+- Calcul automatique de isLate
+
+Routes :
+
+```
+POST   /tickets
+GET    /tickets
+GET    /tickets/:id
+PATCH  /tickets/:id
+PATCH  /tickets/:id/assign/:userId
+```
+
+---
+
+## Module Interventions
+
+Fonctionnalités :
+
+- Création d'une intervention
+- Démarrage d'une intervention
+- Clôture d'une intervention
+- Rapport
+- Temps passé
+- Actions réalisées
+- Mise à jour automatique du statut du ticket
+
+Routes :
+
+```
+POST   /interventions
+GET    /interventions
+GET    /interventions/:id
+PATCH  /interventions/:id
+DELETE /interventions/:id
+PATCH  /interventions/:id/start
+PATCH  /interventions/:id/finish
+```
+
+---
+
+## Module Commentaires
+
+Fonctionnalités :
+
+- Ajout de commentaires
+- Commentaires publics
+- Notes internes
+- Historique des commentaires
+
+Routes :
+
+```
+POST   /comments
+GET    /comments
+GET    /comments/:id
+GET    /comments/ticket/:ticketId
+PATCH  /comments/:id
+DELETE /comments/:id
+```
+
+---
+
+## Module Notifications
+
+Notifications automatiques lors de :
+
+- Création d'un ticket
+- Assignation
+- Changement de statut
+- Ajout d'un commentaire
+- Résolution
+- Ticket en retard
+
+Fonctionnalités :
+
+- Liste des notifications
+- Notifications non lues
+- Marquer comme lue
+
+Routes :
+
+```
+POST   /notifications
+GET    /notifications
+GET    /notifications/user/:userId
+GET    /notifications/user/:userId/unread-count
+PATCH  /notifications/:id/read
+PATCH  /notifications/:id
+DELETE /notifications/:id
+```
+
+---
+
+## Module Audit Log
+
+Historique automatique des actions :
+
+- Création du ticket
+- Modification
+- Assignation
+- Changement de statut
+- Intervention
+- Résolution
+
+Chaque historique contient :
+
+- Utilisateur
+- Action
+- Ancienne valeur
+- Nouvelle valeur
+- Ticket concerné
+- Date
+
+Route :
+
+```
+GET /audit-logs/ticket/:ticketId
+```
+
+---
+
+## Module Dashboard
+
+Statistiques disponibles :
+
+- Total des tickets
+- Tickets ouverts
+- Tickets résolus
+- Tickets en retard
+- Tickets critiques
+- Tickets par statut
+- Tickets par priorité
+- Tickets par technicien
+- Temps moyen de résolution
+
+Route :
+
+```
+GET /dashboard/stats
+```
+
+---
+
+# Sécurité
+
+Le projet utilise :
+
+- JWT Authentication
+- Guards NestJS
+- Role Guards
+- ValidationPipe
+- Class Validator
+
+Les permissions sont gérées selon les rôles :
+
+- USER
+- TECHNICIAN
+- SUPERVISOR
+- ADMIN
+
+---
+
+# Tests
+
+Tous les modules ont été testés avec Swagger.
+
+Modules testés :
+
+- Auth
+- Tickets
+- Interventions
+- Commentaires
+- Notifications
+- Audit Logs
+- Dashboard
+
+---
+
+# Captures d'écran
+
+Le dossier `captures/` contient les captures Swagger des tests suivants :
+
+- Auth Login
+- Création Ticket
+- Assignation Ticket
+- Création Intervention
+- Start Intervention
+- Finish Intervention
+- Création Commentaire
+- Notifications
+- Dashboard
+- Audit Log
+
+---
+
+# Structure du projet
+
+```
+src
+│
+├── auth
+├── users
+├── tickets
+├── interventions
+├── comments
+├── notifications
+├── dashboard
+├── audit-logs
+├── prisma
+└── main.ts
+```
+
+---
+
+# Auteur
+
+**Nermine Slimen**
+
+Projet de Fin d'Études (PFE)
+
+IMSET Sousse
+
+2026
+
+---
+
+# Dépôt GitHub
+
+Branche principale du backend :
+
+```
+backend
+```
+
+Projet :
+
+```
+https://github.com/nermine-slimen02/project-pfe-
+```
