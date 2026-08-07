@@ -5,6 +5,7 @@ import Tickets from './pages/Tickets';
 import Interventions from './pages/Interventions';
 import Notifications from './pages/Notifications';
 import Comments from './pages/Comments';
+import Users from './pages/Users';
 import AuditLogs from './pages/AuditLogs';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './layouts/MainLayout';
@@ -28,6 +29,7 @@ function App() {
           <Route path="interventions" element={<Interventions />} />
           <Route path="comments" element={<Comments />} />
           <Route path="notifications" element={<Notifications />} />
+          <Route path="users" element={<Users />} />
           <Route path="audit-logs" element={<AuditLogs />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />

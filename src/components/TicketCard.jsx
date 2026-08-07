@@ -1,10 +1,14 @@
 import Badge from './Badge';
 import SLARing from './SLARing';
-import { priorities, statuses } from '../data/mockData';
+import { priorities, priorityMap, statusMap, statuses } from '../data/mockData';
 
 function TicketCard({ ticket }) {
-  const priority = priorities[ticket.priority];
-  const status = statuses[ticket.status];
+  const normalizedPriority = (ticket.priority || '').toUpperCase();
+  const normalizedStatus = (ticket.status || '').toUpperCase();
+  const priorityLabel = priorityMap[normalizedPriority] || ticket.priority || 'Normale';
+  const statusLabel = statusMap[normalizedStatus] || ticket.status || 'Nouveau';
+  const priority = priorities[priorityLabel];
+  const status = statuses[statusLabel];
 
   return (
     <article className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
@@ -21,23 +25,23 @@ function TicketCard({ ticket }) {
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <div className="rounded-3xl bg-slate-50 p-3 text-sm text-slate-700">
               <span className="block text-xs uppercase tracking-[0.16em] text-slate-400">Demandeur</span>
-              {ticket.requester}
+              {ticket.user?.email || ticket.requester || 'N/A'}
             </div>
             <div className="rounded-3xl bg-slate-50 p-3 text-sm text-slate-700">
               <span className="block text-xs uppercase tracking-[0.16em] text-slate-400">Assigné à</span>
-              {ticket.assignedTo}
+              {ticket.assignedTo?.email || ticket.assignedTo || 'Non assigné'}
             </div>
             <div className="rounded-3xl bg-slate-50 p-3 text-sm text-slate-700">
               <span className="block text-xs uppercase tracking-[0.16em] text-slate-400">Localisation</span>
-              {ticket.location}</div>
+              {ticket.location || 'Non renseignée'}</div>
             <div className="rounded-3xl bg-slate-50 p-3 text-sm text-slate-700">
               <span className="block text-xs uppercase tracking-[0.16em] text-slate-400">Créé le</span>
-              {ticket.createdAt}
+              {ticket.createdAt ? new Date(ticket.createdAt).toLocaleString() : 'N/A'}
             </div>
           </div>
         </div>
         <div className="flex items-center justify-center">
-          <SLARing remainingHours={ticket.slaRemaining} />
+          <SLARing remainingHours={Math.max(0, ticket.slaRemaining ?? 24)} />
         </div>
       </div>
       <div className="border-t border-slate-100 bg-slate-50 px-6 py-4 text-sm text-slate-600">

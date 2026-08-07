@@ -4,12 +4,13 @@ import { MdMenu, MdLogout, MdDashboard, MdConfirmationNumber, MdBuild, MdComment
 import { useAuth } from '../contexts/AuthContext';
 
 const mobileLinks = [
-  { name: 'Dashboard', to: '/dashboard', icon: MdDashboard, roles: ['Demandeur', 'Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Tickets', to: '/tickets', icon: MdConfirmationNumber, roles: ['Demandeur', 'Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Interventions', to: '/interventions', icon: MdBuild, roles: ['Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Commentaires', to: '/comments', icon: MdComment, roles: ['Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Notifications', to: '/notifications', icon: MdNotifications, roles: ['Superviseur', 'Administrateur'] },
-  { name: 'Audit Log', to: '/audit-logs', icon: MdHistory, roles: ['Superviseur', 'Administrateur'] },
+  { name: 'Dashboard', to: '/dashboard', icon: MdDashboard, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Tickets', to: '/tickets', icon: MdConfirmationNumber, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Interventions', to: '/interventions', icon: MdBuild, roles: ['TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Commentaires', to: '/comments', icon: MdComment, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Notifications', to: '/notifications', icon: MdNotifications, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Utilisateurs', to: '/users', icon: MdHistory, roles: ['SUPERVISOR', 'ADMIN'] },
+  { name: 'Audit Log', to: '/audit-logs', icon: MdHistory, roles: ['SUPERVISOR', 'ADMIN'] },
 ];
 
 function Navbar() {

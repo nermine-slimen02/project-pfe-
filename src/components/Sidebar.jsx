@@ -9,14 +9,16 @@ import {
   MdLogout,
 } from 'react-icons/md';
 import { useAuth } from '../contexts/AuthContext';
+import { roleLabels } from '../data/mockData';
 
 const links = [
-  { name: 'Dashboard', to: '/dashboard', icon: MdDashboard, roles: ['Demandeur', 'Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Tickets', to: '/tickets', icon: MdConfirmationNumber, roles: ['Demandeur', 'Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Interventions', to: '/interventions', icon: MdBuild, roles: ['Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Commentaires', to: '/comments', icon: MdComment, roles: ['Technicien', 'Superviseur', 'Administrateur'] },
-  { name: 'Notifications', to: '/notifications', icon: MdNotifications, roles: ['Superviseur', 'Administrateur'] },
-  { name: 'Audit Log', to: '/audit-logs', icon: MdHistory, roles: ['Superviseur', 'Administrateur'] },
+  { name: 'Dashboard', to: '/dashboard', icon: MdDashboard, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Tickets', to: '/tickets', icon: MdConfirmationNumber, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Interventions', to: '/interventions', icon: MdBuild, roles: ['TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Commentaires', to: '/comments', icon: MdComment, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Notifications', to: '/notifications', icon: MdNotifications, roles: ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'] },
+  { name: 'Utilisateurs', to: '/users', icon: MdHistory, roles: ['SUPERVISOR', 'ADMIN'] },
+  { name: 'Audit Log', to: '/audit-logs', icon: MdHistory, roles: ['SUPERVISOR', 'ADMIN'] },
 ];
 
 function Sidebar() {
@@ -42,7 +44,7 @@ function Sidebar() {
           >
             {availableRoles.map((role) => (
               <option className="bg-slate-950 text-slate-100" key={role} value={role}>
-                {role}
+                {roleLabels[role] || role}
               </option>
             ))}
           </select>
@@ -74,8 +76,8 @@ function Sidebar() {
       <div className="px-6 py-5 border-t border-slate-800">
         <div className="mb-4 rounded-3xl bg-slate-900/80 p-4 text-sm text-slate-300">
           <p className="font-semibold text-slate-200">Connecté en tant que</p>
-          <p className="mt-1 text-sm text-slate-400">{user?.name || 'Invité'}</p>
-          <p className="text-xs text-slate-500">{user?.role || 'Rôle inconnu'}</p>
+          <p className="mt-1 text-sm text-slate-400">{user?.email || 'Invité'}</p>
+          <p className="text-xs text-slate-500">{roleLabels[user?.role] || user?.role || 'Rôle inconnu'}</p>
         </div>
         <button
           type="button"

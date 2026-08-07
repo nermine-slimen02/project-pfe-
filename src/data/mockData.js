@@ -1,18 +1,24 @@
-export const availableRoles = ['Demandeur', 'Technicien', 'Superviseur', 'Administrateur'];
+export const availableRoles = ['USER', 'TECHNICIAN', 'SUPERVISOR', 'ADMIN'];
+
+export const roleLabels = {
+  USER: 'Demandeur',
+  TECHNICIAN: 'Technicien',
+  SUPERVISOR: 'Superviseur',
+  ADMIN: 'Administrateur',
+};
 
 export const users = [
-  { 
-    id: 5, 
-    name: 'Nermine Slimen', 
+  {
+    id: 5,
+    name: 'Nermine Slimen',
     email: 'nermineslimen02@gmail.com',
-    role: 'Administrateur',
-    password: 'nounou@22'
+    role: 'ADMIN',
+    password: 'nounou@22',
   },
-
-  { id: 1, name: 'Lina Dupont', email: 'lina.dupont@example.com', role: 'Demandeur', password: 'demo123' },
-  { id: 2, name: 'Mehdi Khelifi', email: 'mehdi.khelifi@example.com', role: 'Technicien', password: 'tech123' },
-  { id: 3, name: 'Sofia Ben Salah', email: 'sofia.bensalah@example.com', role: 'Superviseur', password: 'super123' },
-  { id: 4, name: 'Amine Cherif', email: 'amine.cherif@example.com', role: 'Administrateur', password: 'admin123' },
+  { id: 1, name: 'Lina Dupont', email: 'lina.dupont@example.com', role: 'USER', password: 'demo123' },
+  { id: 2, name: 'Mehdi Khelifi', email: 'mehdi.khelifi@example.com', role: 'TECHNICIAN', password: 'tech123' },
+  { id: 3, name: 'Sofia Ben Salah', email: 'sofia.bensalah@example.com', role: 'SUPERVISOR', password: 'super123' },
+  { id: 4, name: 'Amine Cherif', email: 'amine.cherif@example.com', role: 'ADMIN', password: 'admin123' },
 ];
 
 export const priorities = {
@@ -22,6 +28,13 @@ export const priorities = {
   Basse: { label: 'Basse', badge: 'bg-slate-100 text-slate-700', border: 'bg-slate-400' },
 };
 
+export const priorityMap = {
+  LOW: 'Basse',
+  MEDIUM: 'Normale',
+  HIGH: 'Haute',
+  CRITICAL: 'Critique',
+};
+
 export const statuses = {
   Nouveau: { label: 'Nouveau', badge: 'bg-sky-100 text-sky-800' },
   Assigné: { label: 'Assigné', badge: 'bg-violet-100 text-violet-800' },
@@ -29,6 +42,13 @@ export const statuses = {
   'En attente': { label: 'En attente', badge: 'bg-slate-100 text-slate-800' },
   Résolu: { label: 'Résolu', badge: 'bg-emerald-100 text-emerald-800' },
   Fermé: { label: 'Fermé', badge: 'bg-slate-900 text-white' },
+};
+
+export const statusMap = {
+  OPEN: 'Nouveau',
+  IN_PROGRESS: 'En cours',
+  RESOLVED: 'Résolu',
+  CLOSED: 'Fermé',
 };
 
 export const tickets = [
